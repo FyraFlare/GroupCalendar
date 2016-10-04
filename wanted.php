@@ -12,6 +12,10 @@
 			echo 'bad';
 		}
 	}
+	elseif($want == "addEvent"){
+		addEvent($_POST["creator"], $_POST["event"], $_POST["year"],$_POST["month"],$_POST["day"],$_POST["time"],$_POST["lasts"]);
+		echo 'added';
+	}
 	elseif($want == "logout"){
 		logout();
 		echo 'loged out';

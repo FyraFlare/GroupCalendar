@@ -64,4 +64,8 @@
 		session_unset();
 		session_destroy();
 	}
+
+	function addEvent($creator, $event, $year, $month, $day, $time, $lasts){
+		//
+	}
 ?>
