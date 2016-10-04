@@ -100,7 +100,7 @@ function register(){
     var args = {submit: 'Register', username: document.getElementById('username').value, pass: pass1};
     $http.post("login.php", args).then(function(data){
         if(data == 'good'){
-            window.location.assign("http://localhost/AdventureGame/login.html");
+            window.location.assign("http://localhost/Group_Calendar/login.html");
         }
         else{
             document.getElementById('error').innerHTML = data;
