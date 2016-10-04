@@ -74,4 +74,35 @@
 		$stmt ->execute();
 		echo 'good';
 	}
+
+	function getEventAmount($creator, $year, $month, $day){
+		global $conn;
+		$com = "SELECT * FROM events WHERE creator='".$creator."' AND year='".$year>"' AND month='".$month."' AND day='".$day."';";
+		$stmt = $conn -> prepare($com);
+		$stmt ->execute();
+		$result = $stmt->fetchAll();
+		$count = 0;
+		foreach($result as $row){
+			$count++;
+		}
+		return $count;
+	}
+//IN PROGRESS
+	function setEvent($creator, $year, $month, $day, $num){
+		session_start();
+		global $conn;
+		$com = "SELECT * FROM events WHERE creator='".$creator."' AND year='".$year>"' AND month='".$month."' AND day='".$day."';";
+		$stmt = $conn -> prepare($com);
+		$stmt ->execute();
+		$result = $stmt->fetchAll();
+		$count = 0;
+		foreach($result as $row){
+			$count++;
+			if($count == $num){
+				$_SESSION['event'] = $row['event'];
+				$_SESSION['time'] = $row['time'];
+				$_SESSION['lasts'] = $row['lasts'];
+			}
+		}
+	}
 ?>

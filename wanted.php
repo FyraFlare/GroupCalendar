@@ -12,8 +12,25 @@
 			echo 'bad';
 		}
 	}
+	elseif($want == "eventAmount"){
+		$num = getEventAmount($_POST["creator"], $_POST["year"], $_POST["month"], $_POST["day"]);
+		echo $num;
+	}
+	elseif($want == "event"){
+		session_start();
+		$_SESSION['creator'] = $_POST["creator"];
+		$_SESSION['year'] = $_POST["year"];
+		$_SESSION['month'] = $_POST["month"];
+		$_SESSION['day'] = $_POST["day"];
+		setEvent($_POST["creator"], $_POST["year"], $_POST["month"], $_POST["day"], $_POST["num"]);
+		echo 'event selected';
+	}
+	elseif($want == "eventInfo"){
+		session_start();
+		echo $_SESSION[$_POST['info']];
+	}
 	elseif($want == "addEvent"){
-		addEvent($_POST["creator"], $_POST["event"], $_POST["year"],$_POST["month"],$_POST["day"],$_POST["time"],$_POST["lasts"]);
+		addEvent($_POST["creator"], $_POST["event"], $_POST["year"], $_POST["month"], $_POST["day"], $_POST["time"], $_POST["lasts"]);
 		echo 'added';
 	}
 	elseif($want == "logout"){
