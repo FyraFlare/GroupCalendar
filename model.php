@@ -66,6 +66,12 @@
 	}
 
 	function addEvent($creator, $event, $year, $month, $day, $time, $lasts){
-		//
+		global $conn;
+		$creator = htmlspecialchars($creator);
+		$event = htmlspecialchars($event);
+		$com = "INSERT INTO events VALUES ('".$creator."', '".$event."', '".$year."', '".$month."', '".$day."', '".$time."', '".$lasts."');";
+		$stmt = $conn -> prepare($com);
+		$stmt ->execute();
+		echo 'good';
 	}
 ?>
