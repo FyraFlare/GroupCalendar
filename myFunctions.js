@@ -67,3 +67,101 @@ function insertDates(date){
 function addEvent(str){
     
 }
+
+function login(){
+    var user = document.getElementById('username').value;
+    var pass = document.getElementById('pass').value;
+    var args = {submit: 'Login', username: user, pass: pass};
+    $http.post("login.php", args).then(function(data){
+        if(data == 'good'){
+            window.location.assign("http://localhost/Group_Calendar/main.html");
+        }
+        else{
+            document.getElementById('error').innerHTML = data;
+        }
+    });
+}
+
+function logout(){
+    var args = {want: 'logout'};
+    $http.post("wanted.php", args).then(function(data){
+        console.log(data);
+        window.location.assign("http://localhost/Group_Calendar/login.html");
+    });
+}
+
+function register(){
+    var pass1 = document.getElementById('pass1').value;
+    var pass2 = document.getElementById('pass2').value;
+    if(pass1 != pass2){
+        document.getElementById('error').innerHTML = 'Passwords do not match';
+        return;
+    }
+    var args = {submit: 'Register', username: document.getElementById('username').value, pass: pass1};
+    $http.post("login.php", args).then(function(data){
+        if(data == 'good'){
+            window.location.assign("http://localhost/AdventureGame/login.html");
+        }
+        else{
+            document.getElementById('error').innerHTML = data;
+        }
+    });
+}
+
+//This came from elsewhere
+var $http = (function (){
+    'use strict';
+
+    function ajax(method, uri, args){
+        var promise = new Promise(function(resolve, reject){
+            var req = new XMLHttpRequest();
+            var url =  uri;
+            var parameters = '';
+            req.open(method, url);
+
+            if(args && (method === 'POST' || method === 'PUT')){
+                req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                if(args && typeof args === 'object'){
+                    for(var k in args){
+                        parameters+= k + '=' + args[k] + '&';
+                    }
+                }
+            }
+            req.send(parameters);
+            req.onload = function (){
+                if(req.status >= 200 && req.status < 300){
+                    resolve(req.response);
+                }
+                else{
+                    reject(req.statusText);
+                }
+            };
+            req.onerror = function(){
+                reject(req.statusText);
+            };
+        });
+        return promise;
+    }
+
+    return {
+        get : function(uri, args, callback){
+            if (args && typeof args === 'function'){
+                callback = args;
+            }
+            if(callback && typeof callback === 'function'){
+                return ajax('GET', uri, args).then(callback)
+            }
+            return ajax('GET', uri, args);
+        },
+        post : function(uri, args, callback){
+            if (args && typeof args === 'function'){
+                callback = args;
+            }
+            if(callback && typeof callback === 'function'){
+                return ajax('POST', uri, args).then(callback)
+            }
+            return ajax('POST', uri, args);
+        },
+    };
+}());
+

@@ -1,0 +1,31 @@
+<!--Name: Carly Cappagli, Louise Johansson
+	Discription: -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Main</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="myFunctions.js"></script>
+</head>
+<body>
+	<h2 id="title">Adventure Game</h2>
+	<div id="stats"></div>
+	<div id="main"></div><br>
+	<div id="battle"></div>
+	<div id="options"></div>
+	<div id="logout"><button class="button" onclick='logout()'>Logout</button></div>
+	<script>
+		var args = {want: 'session'};
+		$http.post("wanted.php", args).then(function(data){
+			if(data == 'good'){
+				setDoc(document.getElementById("main"), document.getElementById("stats"), document.getElementById("battle"), document.getElementById("options"));
+				loadData();
+			}
+			else{
+				document.getElementById("main").innerHTML = "<h2>YOU ARE NOT LOGGED IN!!!!!</h2>";
+				document.getElementById("logout").innerHTML = '<a href="login.html"><button class="button">Login</button></a>';
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!--Name: Carly Cappagli, Louise Johansson
+	Discription:  -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="myFunctions.js"></script>
+</head>
+<body>
+	<h2 id="title">Login</h2>
+	<div id="login">
+	<form onsubmit="login();return false;">
+		User Name: <input type="text" id="username" name="username"  required> <br><br>
+		Password:   <input type="password" id="pass" name="pass" required>
+		<input type="hidden" name="lorr" value="Login">
+		<input type="submit" id="lButton" name="submit" value="Login">
+	</form>
+	<p id='error'></p>
+	</div>
+	<div id="register">
+	Don't have an account? Register now!
+	<form action="http://localhost/Group_Calendar/register.html" method="post">
+		<input type="submit" id="rButton" name="rButton" value="Register">
+	</form>
+	</div>
+	<br>
+	<div id="main">
+	<p>
+		Welcome Group Calendar! This needs to be edited.
+	</p>
+	</div>
+</body>
+</html>
