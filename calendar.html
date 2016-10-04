@@ -4,11 +4,17 @@
 <meta charset="utf-8" />
 <title> Group Calendar </title>
 <link rel="stylesheet"  href="style.css" />
+<script type="text/javascript" src="myFunctions.js"> </script>
 </head>
 
 <body>
+    
     <h1 id="MonthTitle"></h1>
+    
     <div class="MainContent" />
+    <button class="buttons" id="prevMonth" type="button"> Prev Month </button>
+    <button class="buttons" id="nextMonth" type="button"> Next Month </button>
+    
         <table class="Days">
             <tr>
                 <td id="DayNames">Sunday</td>
@@ -75,11 +81,33 @@
             </tr>
         </table>
     </div>
-    <script type="text/javascript" src="myFunctions.js"></script>
     <script>
-        setMonth();
-        getMonthAndYear();
-        insertDates();
+        var myDate = new Date();
+        myDate.setDate(1);
+        var month = 9;
+        var year = 2016;
+        setMonth(myDate, month, year);
+        getMonthAndYear(myDate);
+        
+        document.getElementById("prevMonth").onclick = function() {
+            if(month==0){
+                month = 11;
+                year = year - 1;
+            }else{
+                month--;
+            }
+            setMonth(myDate, month, year) 
+        };
+        document.getElementById("nextMonth").onclick = function() {
+            if(month==11){
+                month = 0;
+                year = year + 1;
+            } else{
+                month++;
+            }
+            setMonth(myDate, month, year)
+        };
+        
     </script>
 </body>
 </html>

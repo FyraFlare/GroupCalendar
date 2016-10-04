@@ -16,20 +16,22 @@ h1{
     background-color: blue;
 }
 
-
-
 .Days td{
     width: 100px;
     height: 60px;
     border: 1px solid black;
-    padding: 0px;
-    margin: 0px;
     text-align: right;
+    vertical-align: top;
     padding-top: 2px;
-    
     background-color: #7FFFD4;
 }
 .Days #DayNames{
     background-color: yellow;
     text-align: center;
+}
+
+.buttons{
+    margin-left: 5px;
+    margin-bottom: 5px;
+    
 }
