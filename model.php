@@ -24,7 +24,7 @@
 			$count++;
 		}
 		if($count < 1){
-			$com = "INSERT INTO users VALUES ('".$name."', 'human', 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 100, 0, 'Town', '".$hash."');";
+			$com = "INSERT INTO users VALUES ('".$name."', '".$hash."');";
 			$stmt = $conn -> prepare($com);
 			$stmt ->execute();
 			echo 'good';
@@ -48,16 +48,6 @@
 			if(password_verify($pass, $psw)){
 				session_start();
 				$_SESSION['user'] = $name;
-				$stmt = $conn -> prepare("SELECT * FROM users WHERE username='".$name."';");
-				$check = $stmt ->execute();
-				$result = $stmt->fetchAll();
-				foreach($result as $row){
-					$_SESSION['lvl'] = $row['level'];
-					$_SESSION['exp'] = $row['exp'];
-					$_SESSION['hp'] = $row['health'];
-					$_SESSION['story'] = $row['story'];
-					$_SESSION['loc'] = $row['location'];
-				}
 				echo 'good';
 			}
 			else{
