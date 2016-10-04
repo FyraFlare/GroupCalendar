@@ -64,8 +64,11 @@ function insertDates(date){
     }
 }
 
-function addEvent(str){
-    
+function addEvent(creator, event, year, month, day, time, lasts){
+    var args = {want: 'addEvent', event: event, year: year, month: month, day: day, time: time, lasts: lasts};
+    $http.post("wanted.php", args).then(function(data){
+        console.log(data);
+    });
 }
 
 function login(){
