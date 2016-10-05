@@ -63,9 +63,16 @@ function insertDates(date){
         document.getElementById("Day" + i).innerHTML = "";
     }
 }
-
+//Adds to Database
 function addEvent(creator, event, year, month, day, time, lasts){
-    var args = {want: 'addEvent', event: event, year: year, month: month, day: day, time: time, lasts: lasts};
+    var args = {want: 'addEvent', creator: creator, event: event, year: year, month: month, day: day, time: time, lasts: lasts};
+    $http.post("wanted.php", args).then(function(data){
+        console.log(data);
+    });
+}
+//Removes from Database
+function removeEvent(creator, event, year, month, day, time, lasts){
+    var args = {want: 'removeEvent', creator: creator, event: event, year: year, month: month, day: day, time: time, lasts: lasts};
     $http.post("wanted.php", args).then(function(data){
         console.log(data);
     });

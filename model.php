@@ -87,7 +87,7 @@
 		}
 		return $count;
 	}
-//IN PROGRESS
+
 	function setEvent($creator, $year, $month, $day, $num){
 		session_start();
 		global $conn;
@@ -104,5 +104,15 @@
 				$_SESSION['lasts'] = $row['lasts'];
 			}
 		}
+	}
+
+	function removeEvent($creator, $event, $year, $month, $day, $time, $lasts){
+		global $conn;
+		$creator = htmlspecialchars($creator);
+		$event = htmlspecialchars($event);
+		$com = "DELETE FROM events WHERE creator='".$creator."' AND event='".$event."'AND year='".$year>"' AND month='".$month."' AND day='".$day."' AND time='".$time."' AND $lasts='".$lasts."';";
+		$stmt = $conn -> prepare($com);
+		$stmt ->execute();
+		echo 'good';
 	}
 ?>
