@@ -16,36 +16,7 @@
 		var args = {want: 'session'};
 		$http.post("wanted.php", args).then(function(data){
 			if(data == 'good'){
-				document.getElementById("main").innerHTML = '<h1 id="MonthTitle"></h1>';
-				document.getElementById("main").innerHTML += '<div class="MainContent" />';
-				document.getElementById("main").innerHTML += '<button class="buttons" id="prevMonth" type="button"> Prev Month </button>';
-				document.getElementById("main").innerHTML += '<button class="buttons" id="nextMonth" type="button"> Next Month </button>';
-				document.getElementById("main").innerHTML += '<table class="Days"><tr><td id="DayNames">Sunday</td><td id="DayNames">Monday</td><td id="DayNames">Tuesday</td><td id="DayNames">Wednesday</td><td id="DayNames">Thursday</td><td id="DayNames">Friday</td><td id="DayNames">Saturday</td></tr><tr><td id="Day0"></td><td id="Day1"></td><td id="Day2"></td><td id="Day3"></td><td id="Day4"></td><td id="Day5"></td><td id="Day6"></td></tr><tr><td id="Day7"></td><td id="Day8"></td><td id="Day9"></td><td id="Day10"></td><td id="Day11"></td><td id="Day12"></td><td id="Day13"></td></tr><tr><td id="Day14"></td><td id="Day15"></td><td id="Day16"></td><td id="Day17"></td><td id="Day18"></td><td id="Day19"></td><td id="Day20"></td></tr><tr><td id="Day21"></td><td id="Day22"></td><td id="Day23"></td><td id="Day24"></td><td id="Day25"></td><td id="Day26"></td><td id="Day27"></td></tr><tr><td id="Day28"></td><td id="Day29"></td><td id="Day30"></td><td id="Day31"></td><td id="Day32"></td><td id="Day33"></td><td id="Day34"></td></tr><tr><td id="Day35"></td><td id="Day36"></td><td id="Day37"></td><td id="Day38"></td><td id="Day39"></td><td id="Day40"></td><td id="Day41"></td></tr></table></div>';
-				var myDate = new Date();
-		        myDate.setDate(1);
-		        var month = 9;
-		        var year = 2016;
-		        setMonth(myDate, month, year);
-		        getMonthAndYear(myDate);
-		        
-		        document.getElementById("prevMonth").onclick = function() {
-		            if(month==0){
-		                month = 11;
-		                year = year - 1;
-		            }else{
-		                month--;
-		            }
-		            setMonth(myDate, month, year) 
-		        };
-		        document.getElementById("nextMonth").onclick = function() {
-		            if(month==11){
-		                month = 0;
-		                year = year + 1;
-		            } else{
-		                month++;
-		            }
-		            setMonth(myDate, month, year)
-		        };
+				document.getElementById("main").innerHTML = '<frame name="left" src="http://localhost/Group_Calendar/calendar.html" />';
 			}
 			else{
 				document.getElementById("main").innerHTML = "<h2>YOU ARE NOT LOGGED IN!!!!!</h2>";
