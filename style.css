@@ -1,12 +1,17 @@
 @CHARSET "ISO-8859-1";
-h1{
+h2{
     size: 48px;
     text-align: center;
     margin-bottom: 10px;
 }
 
-.MainContent{
-    width: 800px;
+#logout{
+    width: 70px;
+    margin: auto;
+}
+
+#main{
+    width: 1150px;
     margin: auto;
 }
 
@@ -34,4 +39,9 @@ h1{
     margin-left: 5px;
     margin-bottom: 5px;
     
+}
+
+.CalFrame{
+    width: 1150px;
+    height: 575px;
 }
