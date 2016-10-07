@@ -54,7 +54,7 @@ function insertDates(date){
     var offset = date.getDate() - 1;  // offset is used to get correct date on calendar (starts at 0)
     var startIndex = date.getDay();   // startIndex is used to print starting on correct day of week
     for(var i = startIndex;i<monLengths[date.getMonth()]+startIndex;i=i+1, offset=offset+1){
-        document.getElementById("Day"+i).innerHTML = date.getDate() + offset; 
+        document.getElementById("Day"+i).innerHTML = date.getDate() + offset;
     }
     for(var i = 0; i < startIndex; i = i + 1){
         document.getElementById("Day" + i).innerHTML = "";
