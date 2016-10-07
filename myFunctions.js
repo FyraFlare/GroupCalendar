@@ -54,7 +54,7 @@ function insertDates(date){
     var offset = date.getDate() - 1;  // offset is used to get correct date on calendar (starts at 0)
     var startIndex = date.getDay();   // startIndex is used to print starting on correct day of week
     for(var i = startIndex;i<monLengths[date.getMonth()]+startIndex;i=i+1, offset=offset+1){
-        document.getElementById("Day"+i).innerHTML = date.getDate() + offset;
+        document.getElementById("Day"+i).innerHTML =  date.getDate() + offset; 
     }
     for(var i = 0; i < startIndex; i = i + 1){
         document.getElementById("Day" + i).innerHTML = "";
@@ -84,7 +84,7 @@ function login(){
     var args = {submit: 'Login', username: user, pass: pass};
     $http.post("login.php", args).then(function(data){
         if(data == 'good'){
-            window.location.assign("http://localhost/Group_Calendar/main.html");
+            window.location.assign("http://localhost/GroupCalendar/main.html");
         }
         else{
             document.getElementById('error').innerHTML = data;
@@ -96,7 +96,7 @@ function logout(){
     var args = {want: 'logout'};
     $http.post("wanted.php", args).then(function(data){
         console.log(data);
-        window.location.assign("http://localhost/Group_Calendar/login.html");
+        window.location.assign("http://localhost/GroupCalendar/login.html");
     });
 }
 
@@ -110,7 +110,7 @@ function register(){
     var args = {submit: 'Register', username: document.getElementById('username').value, pass: pass1};
     $http.post("login.php", args).then(function(data){
         if(data == 'good'){
-            window.location.assign("http://localhost/Group_Calendar/login.html");
+            window.location.assign("http://localhost/GroupCalendar/login.html");
         }
         else{
             document.getElementById('error').innerHTML = data;
