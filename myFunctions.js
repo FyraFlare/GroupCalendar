@@ -22,6 +22,9 @@ var monLengths = new Array( 31,
                             31,
                             30,
                             31 )
+
+var event;
+var eventTot;
                
 function setMonth(myDate, month, year){
     myDate.setDate(1);
@@ -64,7 +67,7 @@ function insertDates(date){
     }
 }
 //Adds to Database
-function addEvent(creator, event, year, month, day, time, lasts){
+function addEventToDatabase(creator, event, year, month, day, time, lasts){
     var args = {want: 'addEvent', creator: creator, event: event, year: year, month: month, day: day, time: time, lasts: lasts};
     $http.post("wanted.php", args).then(function(data){
         console.log(data);
@@ -76,6 +79,42 @@ function removeEvent(creator, event, year, month, day, time, lasts){
     $http.post("wanted.php", args).then(function(data){
         console.log(data);
     });
+}
+//Store number of events by creator on specified day in eventTot
+function retrieveEventTot(creator, year, month, day){
+    var args = {want: 'eventAmount', creator: creator, year: year, month: month, day: day};
+    $http.post("wanted.php", args).then(function(data){
+        console.log(data);
+        eventTot = data;
+    });
+}
+// Store a specified event in event
+function retrieveEvent(creator, year, month, day, num){
+    if(num < eventTot){
+        var args = {want: 'event', creator: creator, year: year, month: month, day: day, num: num};
+        $http.post("wanted.php", args).then(function(data){
+            var args = {want: 'eventInfo', info: 'event'};
+            $http.post("wanted.php", args).then(function(data){
+                event.dis = data;
+            });
+            var args = {want: 'eventInfo', info: 'time'};
+            $http.post("wanted.php", args).then(function(data){
+                event.time = data;
+            });
+            var args = {want: 'eventInfo', info: 'lasts'};
+            $http.post("wanted.php", args).then(function(data){
+                event.dis = lasts;
+            });
+        });
+        event.creator = creator;
+        event.year = year;
+        event.month = month;
+        event.day = day;
+        event.num = num;
+    }
+    else{
+        console.log('Invalid: No more events that day.');
+    }
 }
 
 function login(){
