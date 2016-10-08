@@ -1,6 +1,6 @@
 @CHARSET "ISO-8859-1";
 h2{
-    size: 48px;
+    font-size: 36px;
     text-align: center;
     margin-bottom: 10px;
 }
@@ -11,17 +11,17 @@ h2{
 }
 
 #main{
-    width: 1150px;
+    width: 1500px;
     margin: auto;
 }
 
 .Days{
     margin:auto;
-    background-color: blue;
+    background-color: white;
 }
 
 .noDate{
-    background-color: blue;
+    background-color: white;
     border: none;
 }
 
@@ -33,22 +33,71 @@ h2{
 
 .DayNames{
     text-align: center;
-    background-color: yellow;
+    background-color: darkgray;
+    color: black;
 }
 
 .hasDate{
     text-align: right;
     vertical-align: top;
-    background-color: #7FFFD4;
+    background-color: #eee;
+    color: #777;
+}
+.CalControlPanel {
+    width: 1150px;
+
+}
+.MainCalendar #MonthTitle{
+    background-color: #9ebcda;
+    text-align: center;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 5px;
+    padding-top: 20px;
+    height: 100px;
+    color: white;
+    border-radius: 25px;
+}
+.CalControlPanel #prevMonth{
+    float: left;
+    margin-left: 30px;
+    margin-top: 45px;
 }
 
-#prevMonth{
-    margin-left: 200px;
-    margin-right: 10px;
-    margin-bottom: 5px;
+.CalControlPanel #nextMonth{
+    float: right;
+    margin-right: 5px;
+    margin-top: 45px;
 }
 
 .CalFrame{
-    width: 1150px;
-    height: 575px;
+    width: 1200px;
+    height: 600px;
+    margin: auto;
+    background-color: lightgray;
+    border-radius: 20px;
+}
+
+.active{
+    text-align: right;
+    vertical-align: top;
+    background-color: #9ebcda;
+}
+table{
+    border-radius: 25px;
+}
+
+.Days #Sunday{
+    border-top-left-radius: 25px;
+}
+
+.Days #Saturday{
+    border-top-right-radius: 25px;
+}
+.Days #BottomLeftCorner{
+    border-bottom-left-radius: 25px;
+}
+.Days #BottomRightCorner{
+    border-bottom-right-radius: 25px;
 }
