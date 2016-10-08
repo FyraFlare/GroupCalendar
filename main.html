@@ -8,15 +8,17 @@
 	<script src="myFunctions.js"></script>
 </head>
 <body>
-	<h2 id="title">Group Calendar</h2>
-	<div id="sidebar"></div>
-	<div id="main"></div><br>
-	<div id="logout"><button class="button" onclick='logout()'>Logout</button></div>
-	<script>
+    <div class="MainContent">
+        <h2 id="title">Group Calendar</h2>
+        <div id="sidebar"></div>
+        <div id="main"></div><br>
+        <div id="logout"><button class="button" onclick='logout()'>Logout</button></div>
+	</div>
+    <script>
 		var args = {want: 'session'};
 		$http.post("wanted.php", args).then(function(data){
 			if(data == 'good'){
-				document.getElementById("main").innerHTML = '<iframe class="CalFrame" name="iframe1" src="http://localhost/Group_Calendar/newCalendar.html" />';
+				document.getElementById("main").innerHTML = '<iframe class="CalFrame" name="iframe1" src="http://localhost/Group_Calendar/newCalendarSean.html" />';
 			}
 			else{
 				document.getElementById("main").innerHTML = "<h2>YOU ARE NOT LOGGED IN!!!!!</h2>";
