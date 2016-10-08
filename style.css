@@ -22,31 +22,29 @@ h2{
 
 .noDate{
     background-color: blue;
+    border: none;
 }
 
 .Days td{
     width: 100px;
     height: 60px;
+    padding-top: 2px;
 }
 
 .DayNames{
-    border: 1px solid black;
     text-align: center;
-//   padding-top: 2px;
     background-color: yellow;
-    padding: 20px;
 }
 
 .hasDate{
-    border: 1px solid black;
     text-align: right;
     vertical-align: top;
-    padding-top: 2px;
     background-color: #7FFFD4;
 }
 
-.buttons{
-    margin-left: 5px;
+#prevMonth{
+    margin-left: 200px;
+    margin-right: 10px;
     margin-bottom: 5px;
 }
 
