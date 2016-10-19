@@ -14,13 +14,13 @@
                 fixedWeekCount: false,
                 selectable: true,
                 selectHelper: true,
-                select: function(start, end){
+                select: function(startTime, endTime){
                     var eventTitle = prompt('Event Title:');
                     if(eventTitle){
                         eventData = {
                             title: eventTitle,
-                            start: start,
-                            end: end
+                            start: startTime,
+                            end: endTime,
                         };
                         $('#Calendar').fullCalendar('renderEvent', eventData, true);
                     }
@@ -46,7 +46,7 @@
                 header: {
                     left: 'prev, next, today, addEvent, removeEvent',
                     center: 'title',
-                    right: 'agendaDay, basicWeek, month'
+                    right: 'agendaDay, agendaWeek, month'
                 },
                 
             })
