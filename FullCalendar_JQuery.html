@@ -13,17 +13,20 @@
                 aspectRatio: 2,
                 fixedWeekCount: false,
                 selectable: true,
+                selectHelper: true,
+                select: function(start, end){
+                    var eventTitle = prompt('Event Title:');
+                    if(eventTitle){
+                        eventData = {
+                            title: eventTitle,
+                            start: start,
+                            end: end
+                        };
+                        $('#Calendar').fullCalendar('renderEvent', eventData, true);
+                    }
+                },
+                editable: true,
                 customButtons:{
-                    addEvent: {
-                        text: "New Event",
-                        click: function() {
-                            var newEvent = {
-                                title: "New",
-                                start: "2016-10-09"
-                                };
-                            $("#Calendar").fullCalendar('renderEvent', newEvent);
-                        }
-                    },
                     removeEvent: {
                         text: "Remove Event",
                         click: function(){
@@ -31,7 +34,6 @@
                                 $("#Calendar").fullCalendar('removeEvents', selected);
                                 $("#Calendar").fullCalendar('eventDestroy', selected);
                                 $("#Calendar").fullCalendar('rerenderEvents');
-                                
                             }
                         }
                     }
@@ -44,18 +46,9 @@
                 header: {
                     left: 'prev, next, today, addEvent, removeEvent',
                     center: 'title',
-                    right: 'basicDay, basicWeek, month'
+                    right: 'agendaDay, basicWeek, month'
                 },
-                    events: [{
-                        
-                        title  : 'event2',
-                        start  : '2016-10-08',
-                        end    : '2016-10-09'
-                        },
-                        { title  : 'event3',
-                        start  : '2010-01-09T12:30:00',
-                        allDay : false // will make the time show
-                        }]
+                
             })
         
         });
