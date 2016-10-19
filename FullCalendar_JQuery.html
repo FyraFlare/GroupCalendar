@@ -13,13 +13,14 @@
                 fixedWeekCount: false,
                 selectable: true,
                 selectHelper: true,
-                select: function(startTime, endTime){
+                select: function(startTime, endTime, id){
                     var eventTitle = prompt('Event Title:');
                     if(eventTitle){
                         eventData = {
                             title: eventTitle,
                             start: startTime,
                             end: endTime,
+                         //   id: //generate id
                         };
                         $('#Calendar').fullCalendar('renderEvent', eventData, true);
                     }
@@ -30,15 +31,19 @@
                         text: "Remove Event",
                         click: function(){
                             if(selected != null){
-                                $("#Calendar").fullCalendar('removeEvents', selected.id);
+                            //    $("#Calendar").fullCalendar('removeEvents', selected.id);
                                 $("#Calendar").fullCalendar('rerenderEvents');
                             }
                         }
                     }
                 },
                 eventClick: function(calEvent, jsEvent, view){
-                    $(this).css("border-color", "red");
-                    selected = jsEvent;
+                        alert('Event: ' + calEvent.title);
+                        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+                        alert('View: ' + view.name);
+                        alert('ID: ' + calEvent.id);
+                        $(this).css("border-color", "red");
+                        selected = jsEvent;
                     
                 },
                 header: {
