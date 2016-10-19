@@ -30,8 +30,7 @@
                         text: "Remove Event",
                         click: function(){
                             if(selected != null){
-                                $("#Calendar").fullCalendar('removeEvents', selected);
-                                $("#Calendar").fullCalendar('eventDestroy', selected);
+                                $("#Calendar").fullCalendar('removeEvents', selected.id);
                                 $("#Calendar").fullCalendar('rerenderEvents');
                             }
                         }
@@ -43,7 +42,7 @@
                     
                 },
                 header: {
-                    left: 'prev, next, today, addEvent, removeEvent',
+                    left: 'prev, next, today, removeEvent',
                     center: 'title',
                     right: 'agendaDay, agendaWeek, month'
                 },
