@@ -7,55 +7,51 @@
 </head>
     <div id="Calendar"></div>
     <script>
-        var events = [];
         $(document).ready(function() {
             $("#Calendar").fullCalendar({
                 aspectRatio: 2,
                 fixedWeekCount: false,
                 selectable: true,
+                selectHelper: true,
+                select: function(startTime, endTime, id){
+                    var eventTitle = prompt('Event Title:');
+                    if(eventTitle){
+                        eventData = {
+                            title: eventTitle,
+                            start: startTime,
+                            end: endTime,
+                         //   id: //generate id
+                        };
+                        $('#Calendar').fullCalendar('renderEvent', eventData, true);
+                    }
+                },
+                editable: true,
                 customButtons:{
-                    addEvent: {
-                        text: "New Event",
-                        click: function() {
-                            var newEvent = {
-                                title: "New",
-                                start: "2016-10-09"
-                                };
-                            $("#Calendar").fullCalendar('renderEvent', newEvent);
-                        }
-                    },
                     removeEvent: {
                         text: "Remove Event",
                         click: function(){
                             if(selected != null){
-                                $("#Calendar").fullCalendar('removeEvents', selected);
-                                $("#Calendar").fullCalendar('eventDestroy', selected);
+                            //    $("#Calendar").fullCalendar('removeEvents', selected.id);
                                 $("#Calendar").fullCalendar('rerenderEvents');
-                                
                             }
                         }
                     }
                 },
                 eventClick: function(calEvent, jsEvent, view){
-                    $(this).css("border-color", "red");
-                    selected = jsEvent;
+                        alert('Event: ' + calEvent.title);
+                        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+                        alert('View: ' + view.name);
+                        alert('ID: ' + calEvent.id);
+                        $(this).css("border-color", "red");
+                        selected = jsEvent;
                     
                 },
                 header: {
-                    left: 'prev, next, today, addEvent, removeEvent',
+                    left: 'prev, next, today, removeEvent',
                     center: 'title',
-                    right: 'basicDay, basicWeek, month'
+                    right: 'agendaDay, agendaWeek, month'
                 },
-                    events: [{
-                        
-                        title  : 'event2',
-                        start  : '2016-10-08',
-                        end    : '2016-10-09'
-                        },
-                        { title  : 'event3',
-                        start  : '2010-01-09T12:30:00',
-                        allDay : false // will make the time show
-                        }]
+                
             })
         
         });
