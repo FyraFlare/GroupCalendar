@@ -37,6 +37,18 @@
 		removeEvent($_POST["creator"], $_POST["event"], $_POST["year"], $_POST["month"], $_POST["day"], $_POST["time"], $_POST["lasts"]);
 		echo 'removed';
 	}
+	elseif($want == "createGroup"){
+		$result = createGroup($_POST["group"], $_POST["user"]);
+		echo $result;
+	}
+	elseif($want == "addToGroup"){
+		$result = addToGroup($_POST["user"], $_POST["group"]);
+	}
+	elseif($want == "removeFromGroup"){
+		$result = addEvent($_POST["user"], $_POST["group"]);
+	}elseif($want == "removeGroup"){
+		$result = addEvent($_POST["group"]);
+	}
 	elseif($want == "logout"){
 		logout();
 		echo 'loged out';

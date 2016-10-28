@@ -115,4 +115,57 @@
 		$stmt ->execute();
 		echo 'good';
 	}
+
+	function createGroup($groupname, $username){
+		global $conn;
+		$username = htmlspecialchars($username);
+		$groupname = htmlspecialchars($groupname);
+		$stmt = $conn -> prepare("SELECT * FROM users WHERE name='".$groupname."';");
+		$stmt ->execute();
+		$result = $stmt->fetchAll();
+		$count = 0;
+		foreach($result as $row){
+			$count++;
+		}
+		if($count < 1){
+			$com = "INSERT INTO users VALUES ('".$groupname."');";
+			$stmt = $conn -> prepare($com);
+			$stmt ->execute();
+			$com = "INSERT INTO groups VALUES ('".$username."', '".$groupname."');";
+			$stmt = $conn -> prepare($com);
+			$stmt ->execute();
+			echo 'Created';
+		}
+		else{
+			echo 'Name is taken';
+		}
+	}
+
+	function addToGroup($username, $groupname){
+		global $conn;
+		$username = htmlspecialchars($username);
+		$groupname = htmlspecialchars($groupname);
+		$com = "INSERT INTO groups VALUES ('".$username."', '".$groupname."');";
+		$stmt ->execute();
+	}
+
+	function removeFromGroup($username, $groupname){
+		global $conn;
+		$username = htmlspecialchars($username);
+		$groupname = htmlspecialchars($groupname);
+		$com = "DELETE FROM groups WHERE user='".$username."' AND groupname='".$groupname."';";
+		$stmt ->execute();
+	}
+
+	function removeGroup($groupname){
+		global $conn;
+		$username = htmlspecialchars($username);
+		$groupname = htmlspecialchars($groupname);
+		$com = "DELETE FROM groups WHERE groupname='".$groupname."';";
+		$stmt ->execute();
+		$com = "DELETE FROM users WHERE name='".$groupname."';";
+		$stmt ->execute();
+	}
+
 ?>
+
