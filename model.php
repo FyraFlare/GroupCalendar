@@ -16,7 +16,7 @@
 		$name = htmlspecialchars($name);
 		$pass = htmlspecialchars($pass);
 		$hash = password_hash($pass, PASSWORD_DEFAULT);
-		$stmt = $conn -> prepare("SELECT * FROM users WHERE username='".$name."';");
+		$stmt = $conn -> prepare("SELECT * FROM users WHERE name='".$name."';");
 		$stmt ->execute();
 		$result = $stmt->fetchAll();
 		$count = 0;
@@ -38,7 +38,7 @@
 		global $conn;
 		$name = htmlspecialchars($name);
 		$pass = htmlspecialchars($pass);
-		$stmt = $conn -> prepare("SELECT password FROM users WHERE username='".$name."';");
+		$stmt = $conn -> prepare("SELECT password FROM users WHERE name='".$name."';");
 		$stmt ->execute();
 		$result = $stmt->fetchAll();
 		if(count($result) == 1){
