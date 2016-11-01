@@ -67,22 +67,22 @@ function insertDates(date){
     }
 }
 //Adds to Database
-function addEventToDatabase(creator, event, year, month, day, time, lasts){
-    var args = {want: 'addEvent', creator: creator, event: event, year: year, month: month, day: day, time: time, lasts: lasts};
+function addEventToDatabase(creator, event){
+    var args = {want: 'addEvent', creator: creator, event: event};
     $http.post("wanted.php", args).then(function(data){
         console.log(data);
     });
 }
 //Removes from Database
-function removeEvent(creator, event, year, month, day, time, lasts){
-    var args = {want: 'removeEvent', creator: creator, event: event, year: year, month: month, day: day, time: time, lasts: lasts};
+function removeEvent(creator, event){
+    var args = {want: 'removeEvent', creator: creator, event: event};
     $http.post("wanted.php", args).then(function(data){
         console.log(data);
     });
 }
 //Store number of events by creator on specified day in eventTot
-function retrieveEventTot(creator, year, month, day){
-    var args = {want: 'eventAmount', creator: creator, year: year, month: month, day: day};
+function retrieveEventTot(creator){
+    var args = {want: 'eventAmount', creator: creator};
     $http.post("wanted.php", args).then(function(data){
         console.log(data);
         eventTot = data;
@@ -91,25 +91,14 @@ function retrieveEventTot(creator, year, month, day){
 // Store a specified event in event
 function retrieveEvent(creator, year, month, day, num){
     if(num < eventTot){
-        var args = {want: 'event', creator: creator, year: year, month: month, day: day, num: num};
+        var args = {want: 'event', creator: creator, num: num};
         $http.post("wanted.php", args).then(function(data){
             var args = {want: 'eventInfo', info: 'event'};
             $http.post("wanted.php", args).then(function(data){
                 event.dis = data;
             });
-            var args = {want: 'eventInfo', info: 'time'};
-            $http.post("wanted.php", args).then(function(data){
-                event.time = data;
-            });
-            var args = {want: 'eventInfo', info: 'lasts'};
-            $http.post("wanted.php", args).then(function(data){
-                event.dis = lasts;
-            });
         });
         event.creator = creator;
-        event.year = year;
-        event.month = month;
-        event.day = day;
         event.num = num;
     }
     else{

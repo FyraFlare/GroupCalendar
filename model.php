@@ -65,19 +65,19 @@
 		session_destroy();
 	}
 
-	function addEvent($creator, $event, $year, $month, $day, $time, $lasts){
+	function addEvent($creator, $event){
 		global $conn;
 		$creator = htmlspecialchars($creator);
 		$event = htmlspecialchars($event);
-		$com = "INSERT INTO events VALUES ('".$creator."', '".$event."', '".$year."', '".$month."', '".$day."', '".$time."', '".$lasts."');";
+		$com = "INSERT INTO events VALUES ('".$creator."', '".$event."');";
 		$stmt = $conn -> prepare($com);
 		$stmt ->execute();
 		echo 'good';
 	}
 
-	function getEventAmount($creator, $year, $month, $day){
+	function getEventAmount($creator){
 		global $conn;
-		$com = "SELECT * FROM events WHERE creator='".$creator."' AND year='".$year>"' AND month='".$month."' AND day='".$day."';";
+		$com = "SELECT * FROM events WHERE creator='".$creator."';";
 		$stmt = $conn -> prepare($com);
 		$stmt ->execute();
 		$result = $stmt->fetchAll();
@@ -88,10 +88,10 @@
 		return $count;
 	}
 
-	function setEvent($creator, $year, $month, $day, $num){
+	function setEvent($creator, $num){
 		session_start();
 		global $conn;
-		$com = "SELECT * FROM events WHERE creator='".$creator."' AND year='".$year>"' AND month='".$month."' AND day='".$day."';";
+		$com = "SELECT * FROM events WHERE creator='".$creator."';";
 		$stmt = $conn -> prepare($com);
 		$stmt ->execute();
 		$result = $stmt->fetchAll();
@@ -100,17 +100,15 @@
 			$count++;
 			if($count == $num){
 				$_SESSION['event'] = $row['event'];
-				$_SESSION['time'] = $row['time'];
-				$_SESSION['lasts'] = $row['lasts'];
 			}
 		}
 	}
 
-	function removeEvent($creator, $event, $year, $month, $day, $time, $lasts){
+	function removeEvent($creator, $event){
 		global $conn;
 		$creator = htmlspecialchars($creator);
 		$event = htmlspecialchars($event);
-		$com = "DELETE FROM events WHERE creator='".$creator."' AND event='".$event."'AND year='".$year>"' AND month='".$month."' AND day='".$day."' AND time='".$time."' AND $lasts='".$lasts."';";
+		$com = "DELETE FROM events WHERE creator='".$creator."' AND event='".$event."';";
 		$stmt = $conn -> prepare($com);
 		$stmt ->execute();
 		echo 'good';
