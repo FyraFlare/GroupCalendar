@@ -1,28 +1,79 @@
 <html>
 <head>
 <link rel="stylesheet" href="fullcalendar/fullcalendar.css"/>
+<link rel="stylesheet" href="style.css"/>
 <script src="fullcalendar/lib/jquery.min.js"></script>
 <script src="fullcalendar/lib/moment.min.js"></script>
 <script src="fullcalendar/fullcalendar.js"></script>
+<script src="dashboardFunctions.js" type="text/javascript"></script></script>
 </head>
-    <div id="Calendar"></div>
+    <div class="MainCalContainer">
+        <div class="CalContainer" >
+            <div id="Calendar"></div>
+        </div>
+        <div id="Dashboard" script="dashboardFunctions.js" >
+            <div id="DashIcon" onclick="loadDashboard();">Dashboard </div> <br><br> 
+            <div id="DashContent" >
+                <div id="Groups" onclick="printEvents($('#Calendar').fullCalendar('clientEvents')); return false;"> Groups <hr/> </div>
+                <div id="Message"> Message <hr/> </div>
+            </div>
+        </div>
+    </div>
     <script>
         $(document).ready(function() {
-            $("#Calendar").fullCalendar({
+            var selected = "";
+            var calendar = $("#Calendar").fullCalendar({
                 aspectRatio: 2,
                 fixedWeekCount: false,
                 selectable: true,
                 selectHelper: true,
                 select: function(startTime, endTime, id){
-                    var eventTitle = prompt('Event Title:');
+                    var eventTitle = prompt('Event Title:', "Enter Title Here");
                     if(eventTitle){
-                        eventData = {
-                            title: eventTitle,
-                            start: startTime,
-                            end: endTime,
-                         //   id: //generate id
-                        };
-                        $('#Calendar').fullCalendar('renderEvent', eventData, true);
+                        var isAllDay = confirm("Is this an All-Day Event?");
+                        if(isAllDay == true){
+                            eventData = {
+                                title: eventTitle,
+                                start: startTime,
+                                end: endTime,
+                                id: Math.random(),
+                            };
+                            $('#Calendar').fullCalendar('renderEvent', eventData, true);
+                        }
+                        else{
+                            var start = prompt('Start Time:');
+                            var end = prompt('End Time:');
+                            if(start && end){
+                                if(start.indexOf(':') != -1){
+                                    start = parseInt(start) + (parseInt(start.substring(start.indexOf(':')+1, start.length)) / 60);
+                                    console.log(start);
+                                }
+                                if(end.indexOf(':') != -1){
+                                    end = parseInt(end) + (parseInt(end.substring(end.indexOf(':')+1, end.length))/60);
+                                    console.log(end);
+                                }
+                                start = start * 3600000;        // convert integer given into miliseconds
+                                end = end * 3600000;            // convert integer given into miliseconds
+                                start = start + startTime;      // startTime == 00:00:00 on day that was clicked
+                            //    endTime = endTime - (24 * 3600000);
+                                end = end + startTime;              // endTime == 00:00:00 day AFTER the day that was clicked (so we must )
+                                console.log(start + " " + startTime + " " + end);
+                                eventData = {
+                                    title: eventTitle,
+                                    start: start,
+                                    end: end,
+                                    allDay: false,
+                                    id: Math.random(),
+                                };
+                                $('#Calendar').fullCalendar('renderEvent', eventData, true);
+                            }
+                        
+                        }
+                    }
+                    if(selected != ""){
+                            selected.borderColor = "none";  // remove the border for a selected event
+                            $('#Calendar').fullCalendar('updateEvent', selected);   // want to clear any selected events
+                            selected = "";
                     }
                 },
                 editable: true,
@@ -30,31 +81,43 @@
                     removeEvent: {
                         text: "Remove Event",
                         click: function(){
-                            if(selected != null){
-                            //    $("#Calendar").fullCalendar('removeEvents', selected.id);
-                                $("#Calendar").fullCalendar('rerenderEvents');
+                            if(selected != ""){
+                                var date = new Date();
+                                $("#Calendar").fullCalendar('removeEvents', selected.id);   // use FullCalendar.removeEvent method to remove selected event
+                                $("#Calendar").fullCalendar('rerenderEvents');  // rerenderEvents will display all events in 'clientEvents' global 'array' 
+                                selected = "";      // 'unset' selected by assigning empty string
+                            }
+                            else{
+                                alert("Please Select an Event to Remove");
                             }
                         }
                     }
                 },
-                eventClick: function(calEvent, jsEvent, view){
-                        alert('Event: ' + calEvent.title);
-                        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                        alert('View: ' + view.name);
-                        alert('ID: ' + calEvent.id);
-                        $(this).css("border-color", "red");
-                        selected = jsEvent;
-                    
+                eventClick: function(calEvent, jsEvent, view, cell){
+                        var changeName = confirm("Do you want to change the name of this Event?");
+                        if(changeName == true){
+                            var newName = prompt("Enter new Title: ", "Enter Title Here");
+                            calEvent.title = newName;
+                            $('#Calendar').fullCalendar('updateEvent', calEvent);
+                        }
+                        if(selected != ""){
+                            selected.borderColor = "none";
+                            $('#Calendar').fullCalendar('updateEvent', selected);
+                        }
+                        alert("Event: " + calEvent.title + "\n" + "Starts: " +  calEvent.start.toString() + "\n" + "Ends: " + calEvent.end.toString());
+                        selected = calEvent;    // assign the selected event to variable 'selected' for use in remove or other functions
+                        selected.borderColor = "red";
+                        $('#Calendar').fullCalendar('updateEvent', selected);
                 },
                 header: {
-                    left: 'prev, next, today, removeEvent',
-                    center: 'title',
-                    right: 'agendaDay, agendaWeek, month'
+                    left: 'prev, next, today, removeEvent',     // sets built-in buttons for next month, prev month, and today (which takes the view to current month/week/day depending on current view)
+                    center: 'title',                            // title defaults to show the month/week/day being looked at by user
+                    right: 'agendaDay, agendaWeek, month'       // default views for a month/week/day
                 },
-                
             })
         
         });
+        
     </script>
 
 

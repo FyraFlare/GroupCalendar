@@ -11,9 +11,11 @@ h2{
 }
 
 #main{
-    width: 1500px;
+    width: 1700px;
     margin: auto;
 }
+
+
 
 .Days{
     margin:auto;
@@ -70,13 +72,44 @@ h2{
     margin-right: 5px;
     margin-top: 45px;
 }
-
 .CalFrame{
-    width: 1200px;
-    height: 600px;
+    width: 1700px;
+    height: 780px;
     margin: auto;
-    background-color: lightgray;
+ //   background-color: lightgray;
     border-radius: 20px;
+   
+}
+
+.MainCalContainer {
+    width: 1600px;
+    display: in-line block;
+}
+.CalContainer{
+    width: 1400px;
+    float: right;
+}
+
+#Dashboard{
+    width: 195px;
+    float: left;
+    height: 100%;
+    border-radius: 20px;
+    text-align: center;
+    background-color: #B3CCFF;
+    margin-right: 5px;
+}
+
+#DashIcon {
+    margin-top: 10px;
+}
+#Groups, #DashIcon, #Message{
+    cursor: pointer;
+    
+}
+
+#Groups:hover, #DashIcon:hover, #Message:hover {
+    background-color: #e6e6e6;
 }
 
 .active{
