@@ -50,6 +50,15 @@
 	}elseif($want == "removeGroup"){
 		$result = addEvent($_POST["group"]);
 	}
+	elseif($want == "memberAmount"){
+		$num = getEventAmount($_POST["group"]);
+		echo $num;
+	}
+	elseif($want == "member"){
+		session_start();
+		$name = getMember($_POST["creator"], $_POST["num"]);
+		echo $name;
+	}
 	elseif($want == "logout"){
 		logout();
 		echo 'loged out';

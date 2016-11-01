@@ -89,8 +89,8 @@ function retrieveEventTot(creator){
     });
 }
 // Store a specified event in event
-function retrieveEvent(creator, year, month, day, num){
-    if(num < eventTot){
+function retrieveEvent(creator, num){
+    if(num <= eventTot){
         var args = {want: 'event', creator: creator, num: num};
         $http.post("wanted.php", args).then(function(data){
             var args = {want: 'eventInfo', info: 'event'};
@@ -104,6 +104,18 @@ function retrieveEvent(creator, year, month, day, num){
     else{
         console.log('Invalid: No more events that day.');
     }
+}
+// Get group members
+function memberlist(group){
+    var args = {want: 'memberAmount', group: group}
+    $http.post("wanted.php", args).then(function(data){
+        for(var i = 1; i <= data; i++){
+            var args = {want: 'member', num: i};
+            $http.post("wanted.php", args).then(function(data){
+                // data is the user name of the group member
+            });
+        }
+    });
 }
 
 function login(){

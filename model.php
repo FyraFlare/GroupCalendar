@@ -165,5 +165,34 @@
 		$stmt ->execute();
 	}
 
+	function getMemberAmount($group){
+		global $conn;
+		$com = "SELECT * FROM groups WHERE groupname='".$group."';";
+		$stmt = $conn -> prepare($com);
+		$stmt ->execute();
+		$result = $stmt->fetchAll();
+		$count = 0;
+		foreach($result as $row){
+			$count++;
+		}
+		return $count;
+	}
+
+	function getMember($group, $num){
+		session_start();
+		global $conn;
+		$com = "SELECT * FROM groups WHERE groupname='".$group."';";
+		$stmt = $conn -> prepare($com);
+		$stmt ->execute();
+		$result = $stmt->fetchAll();
+		$count = 0;
+		foreach($result as $row){
+			$count++;
+			if($count == $num){
+				return $row['user'];
+			}
+		}
+	}
+
 ?>
 
