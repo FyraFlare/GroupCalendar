@@ -2,7 +2,7 @@
 	//Name: Carly Cappagli
 	//Discription: 
 	require_once('model.php');# Now can call functions inside model.php
-	$want = $_POST["want"];
+    $want = $_POST["want"];
 	if($want == "session"){
 		session_start();
 		if($_SESSION['user'] != null){
@@ -12,7 +12,7 @@
 			echo 'bad';
 		}
 	}
-	if($want == "user"){
+	elseif($want == "user"){
 		session_start();
 		echo $_SESSION['user'];
 	}
@@ -31,7 +31,7 @@
 		echo $_SESSION[$_POST['info']];
 	}
 	elseif($want == "addEvent"){
-		addEvent($_POST["creator"], $_POST["event"]);
+		addEvent($_POST["creator"], $_POST["event"], $_POST["year"],$_POST["month"], $_POST["day"], $_POST["time"], $_POST["lasts"]);
 		echo 'added';
 	}
 	elseif($want == "removeEvent"){
@@ -61,7 +61,7 @@
 	}
 	elseif($want == "logout"){
 		logout();
-		echo 'loged out';
+		echo 'logged out';
 	}
 	else{
 		echo "not working";
