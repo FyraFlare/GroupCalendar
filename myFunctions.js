@@ -158,6 +158,14 @@ function register(){
     });
 }
 
+// function getEventsAsArray(){
+    // var args = {submit: 'eventsAsArray'};
+    // $http.post('wanted.php', args).then(function(data){
+        // var events = json.strigify(data);
+        // console.log()
+    // });
+// }
+
 //This came from elsewhere
 var $http = (function (){
     'use strict';

@@ -17,8 +17,9 @@
     <script>
 		var args = {want: 'session'};
 		$http.post("wanted.php", args).then(function(data){
+            console.log(data);
 			if(data == 'good'){
-				document.getElementById("main").innerHTML = '<iframe class="CalFrame" name="iframe1" src="http://localhost/Group_Calendar/FullCalendar_JQuery.html" />';
+				document.getElementById("main").innerHTML = '<iframe class="CalFrame" name="iframe1" src="http://localhost/Group_Calendar/FullCalendar_JQuery_db_working.html" />';
 			}
 			else{
 				document.getElementById("main").innerHTML = "<h2>YOU ARE NOT LOGGED IN!!!!!</h2>";

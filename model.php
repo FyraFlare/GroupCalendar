@@ -118,4 +118,14 @@
 		$stmt ->execute();
 		echo 'good';
 	}
+	
+    function fetchCurrentEvents(){
+        global $conn;
+        $time = new Date();
+		$com = "SELECT FROM new_events where start > '".$time."';";
+        $stmt = $conn->prepare($com);
+        $results = $stmt->execute();
+        echo json_encode($results);
+    }
+    
 ?>

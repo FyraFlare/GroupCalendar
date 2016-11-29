@@ -63,6 +63,9 @@
 		logout();
 		echo 'logged out';
 	}
+    elseif($want == "fetch"){
+        fetchEvents();
+    }
 	else{
 		echo "not working";
 	}
