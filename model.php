@@ -1,10 +1,11 @@
 <?php
 	//Name: Carly Cappagli
 	//Discription: interacts with database
+
 	$db = 'mysql:dbname=groupCalendar;host=127.0.0.1';
 	$user = 'root';
 	$password = '';
-
+    
 	try {
 		$conn = new PDO ( $db, $user, $password );
 	}catch ( PDOException $e ) {
@@ -16,7 +17,8 @@
 		$name = htmlspecialchars($name);
 		$pass = htmlspecialchars($pass);
 		$hash = password_hash($pass, PASSWORD_DEFAULT);
-		$stmt = $conn -> prepare("SELECT * FROM users WHERE name='".$name."';");
+		$stmt = $conn -> prepare("SELECT * FROM users WHERE name=(:name)");
+        $stmt->bindParam("name", $name);
 		$stmt ->execute();
 		$result = $stmt->fetchAll();
 		$count = 0;
@@ -24,8 +26,11 @@
 			$count++;
 		}
 		if($count < 1){
-			$com = "INSERT INTO users VALUES ('".$name."', '".$hash."');";
-			$stmt = $conn -> prepare($com);
+            $id = 0;
+			$stmt = $conn -> prepare("INSERT INTO users (id, name, password) values(:id, :name, :password)");
+            $stmt->bindParam("id", $id);
+            $stmt->bindParam("name", $name);
+            $stmt->bindParam("password", $hash);
 			$stmt ->execute();
 			echo 'good';
 		}
@@ -106,13 +111,21 @@
 		}
 	}
 
-	function removeEvent($creator, $event, $year, $month, $day, $time, $lasts){
+	function removeEvent($id){
 		global $conn;
-		$creator = htmlspecialchars($creator);
-		$event = htmlspecialchars($event);
-		$com = "DELETE FROM events WHERE creator='".$creator."' AND event='".$event."'AND year='".$year>"' AND month='".$month."' AND day='".$day."' AND time='".$time."' AND $lasts='".$lasts."';";
+		$com = "DELETE FROM new_events WHERE id='".$id."';";
 		$stmt = $conn -> prepare($com);
 		$stmt ->execute();
 		echo 'good';
 	}
+	
+    function fetchCurrentEvents(){
+        global $conn;
+        $time = new Date();
+		$com = "SELECT FROM new_events where start > '".$time."';";
+        $stmt = $conn->prepare($com);
+        $results = $stmt->execute();
+        echo json_encode($results);
+    }
+    
 ?>

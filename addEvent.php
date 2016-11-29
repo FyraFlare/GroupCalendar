@@ -4,7 +4,7 @@
 $title = $_POST['title'];
 $start = $_POST['start'];
 $end = $_POST['end'];
-$url = $_POST['url'];
+$allDay = $_POST['allDay'];
 
  // connect to database
  $db = 'mysql:dbname=groupCalendar;host=127.0.0.1';
@@ -21,7 +21,7 @@ catch (PDOException $e) {
 }
 
 // insert new event
-$event = "INSERT INTO new_events (title, start, end, url) VALUES (:title, :start, :end, :url)";
+$event = "INSERT INTO new_events (title, start, end, allDay) VALUES (:title, :start, :end, :allDay)";
 $stmt = $dbConn->prepare($event);
-$stmt->execute(array(':title'=>$title, ':start'=>$start, ':end'=>$end,  ':url'=>$url));
+$stmt->execute(array(':title'=>$title, ':start'=>$start, ':end'=>$end,  ':allDay'=>$allDay));
 ?>

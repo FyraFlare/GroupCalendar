@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `events`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `events` (
   `creator` varchar(50) NOT NULL,
-  `event` varchar(200) NOT NULL,
+  `event` varchar(350) NOT NULL,
   `year` int(11) DEFAULT NULL,
   `month` int(11) DEFAULT NULL,
   `day` int(11) DEFAULT NULL,

@@ -8,6 +8,7 @@
 <script src="fullcalendar/fullcalendar.js"></script>
 <script src="dashboardFunctions.js" type="text/javascript"></script>
 <script src="myFunctions.js" type="text/javascript"></script>
+<script src="moment.js" type="text/javascript"></script>
 </head>
     <div class="MainCalContainer">
         <div class="CalContainer" >
@@ -16,8 +17,9 @@
         <div id="Dashboard" script="dashboardFunctions.js" >
             <div id="DashIcon" onclick="loadDashboard();">Dashboard </div> <br><br> 
             <div id="DashContent" >
-                <div id="Groups" onclick="printEvents($('#Calendar').fullCalendar('clientEvents')); return false;"> Groups <hr/> </div>
+                <div id="Groups" > Groups <hr/> </div>
                 <div id="Message"> Message <hr/> </div>
+				<div id="UpcomingEvents" onclick="printEvents($('#Calendar').fullCalendar('clientEvents')); return false;"> Upcoming Events <hr> </div>
             </div>
         </div>
     </div>
@@ -27,7 +29,7 @@
         var d = date.getDate();
         var m = date.getMonth();
         var y = date.getFullYear();
-
+		var selected = "";
         var calendar = $('#Calendar').fullCalendar({
 			aspectRatio: 2,
 			fixedWeekCount: false,    
@@ -44,24 +46,47 @@
 			},
 			selectable: true,
 			selectHelper: true,
-			select: function(start, end, allDay) {
+			select: function(start, end) {
 				var title = prompt('Event Title:');
-				var allDay = confirm('Is this an All Day Event?');
-				console.log(allDay);
-				if (title) {
-					var start = $.fullCalendar.moment(start).format();
-					var end = $.fullCalendar.moment(end).format();
-					$.ajax({
-						url: 'http://localhost/Group_Calendar/addEvent.php',
-						data: 'title='+ title+'&start='+ start +'&end='+ end +'&url='+ allDay ,
-						type: "POST",
-						success: function(json) {
-							alert('Added Successfully');
+				if(title != null){
+					var allDay = confirm('Is this an All Day Event?');	
+					console.log(allDay);
+					if (title) {
+						if(!allDay){
+							var setStart = prompt('What time does the event start? (24 hr)');
+							while(setStart.length == 0){
+								setStart = prompt("You did not enter a value for start time, please enter a start time.")
+							}
+							var setEnd = prompt('What time does the event end? (24 hr)');
+							while(setEnd.length == 0 || setEnd == null){
+								setEnd = prompt("You did not enter a value for end time, please enter a start time.")
+							}
+							var start = moment(start.add(setStart, 'hours')).format();
+							console.log(setStart.substring(0,2));
+							var end = moment(end.add(setEnd - 24, 'hours')).format();
+							console.log(end);
 						}
-					});
-					$('#Calendar').fullCalendar('renderEvent', {title: title, start: start, end: end, allDay: allDay}, true);
+						else{
+							var start = $.fullCalendar.moment(start).format();
+							var end = $.fullCalendar.moment(end).format();
+						}
+						$.ajax({
+							url: 'http://localhost/Group_Calendar/addEvent.php',
+							data: 'title='+ title+'&start='+ start +'&end='+ end,
+							type: "POST",
+							success: function(json) {
+								alert('Added Successfully');
+							}
+						});
+						$('#Calendar').fullCalendar('renderEvent', {title: title, start: start, end: end, allDay: allDay}, true);
+					}
+					$('#Calendar').fullCalendar('unselect');
+					if(selected != ""){
+								selected.borderColor = "none";  // remove the border for a selected event
+								$('#Calendar').fullCalendar('updateEvent', selected);   // want to clear any selected events
+								selected = "";
+					}
 				}
-				$('#Calendar').fullCalendar('unselect');
 			},
 			editable: true,
 			eventDrop: function(event, delta) {
@@ -88,11 +113,45 @@
 					}
 				});
 			},
+			eventClick: function(calEvent, jsEvent, view, cell){
+				if(selected != ""){
+					selected.borderColor = "none";
+					$('#Calendar').fullCalendar('updateEvent', selected);
+				}
+            //    alert("Event: " + calEvent.title + "\n" + "Starts: " +  calEvent.start.toString() + "\n" + "Ends: " + calEvent.end.toString());
+                selected = calEvent;    // assign the selected event to variable 'selected' for use in remove or other functions
+				selected.borderColor = "red";
+				$('#Calendar').fullCalendar('updateEvent', selected);
+				
+			},
 			header: {
-				left: 'prev,next today',
+				left: 'prev,next today removeEvent',
 				center: 'title',
 				right: 'month,agendaWeek,agendaDay'
-			}
+			},
+			customButtons:{
+				removeEvent: {
+				text: "Remove Event",
+					click: function(){
+						console.log(selected.id);
+						if(selected != ""){
+						var confirmRemoval = confirm("Are you sure you want to delete the selected Event?");
+							if(confirmRemoval){
+								removeEvent(selected.id);
+								var date = new Date();
+								$("#Calendar").fullCalendar('removeEvents', selected.id);   // use FullCalendar.removeEvent method to remove selected event
+								$("#Calendar").fullCalendar('rerenderEvents');  // rerenderEvents will display all events in 'clientEvents' global 'array' 
+								selected = "";      // 'unset' selected by assigning empty string
+							}
+						}
+						else{
+								alert("Please Select an Event to Remove");
+							}
+					}
+				}
+				
+            }
+			
 		});
 });
 

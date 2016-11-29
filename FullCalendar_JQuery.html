@@ -5,7 +5,8 @@
 <script src="fullcalendar/lib/jquery.min.js"></script>
 <script src="fullcalendar/lib/moment.min.js"></script>
 <script src="fullcalendar/fullcalendar.js"></script>
-<script src="dashboardFunctions.js" type="text/javascript"></script></script>
+<script src="dashboardFunctions.js" type="text/javascript"></script>
+<script src="myFunctions.js" type="text/javascript"></script>
 </head>
     <div class="MainCalContainer">
         <div class="CalContainer" >
@@ -21,13 +22,27 @@
     </div>
     <script>
         $(document).ready(function() {
+        //    var user = getMember();
             var selected = "";
             var calendar = $("#Calendar").fullCalendar({
                 aspectRatio: 2,
                 fixedWeekCount: false,
                 selectable: true,
                 selectHelper: true,
+                 
+                events: "fetchEvents.php",
+   
+   // Convert the allDay from string to boolean
+                eventRender: function(event, element, view) {
+                    if (event.allDay === 'true') {
+                        event.allDay = true;
+                    } 
+                    else {
+                     event.allDay = false;
+                    }
+                },
                 select: function(startTime, endTime, id){
+                    console.log(startTime.format('hh:mm:ss'));
                     var eventTitle = prompt('Event Title:', "Enter Title Here");
                     if(eventTitle){
                         var isAllDay = confirm("Is this an All-Day Event?");
@@ -39,10 +54,13 @@
                                 id: Math.random(),
                             };
                             $('#Calendar').fullCalendar('renderEvent', eventData, true);
+                            addEventToDatabase("Sean",eventTitle, parseInt(startTime.format().substring(0,4)), 
+                                parseInt(startTime.format().substring(5,7)), parseInt(startTime.format().substring(8,11)),
+                                startTime.format('hh:mm:ss'), "All Day");
                         }
                         else{
-                            var start = prompt('Start Time:');
-                            var end = prompt('End Time:');
+                            var start = prompt('Start Time (24 hr format):');
+                            var end = prompt('End Time (24 hr format):');
                             if(start && end){
                                 if(start.indexOf(':') != -1){
                                     start = parseInt(start) + (parseInt(start.substring(start.indexOf(':')+1, start.length)) / 60);
@@ -52,12 +70,15 @@
                                     end = parseInt(end) + (parseInt(end.substring(end.indexOf(':')+1, end.length))/60);
                                     console.log(end);
                                 }
+                                console.log(String(parseInt(endTime.format('hh:mm'))));
+                                console.log(String(parseInt(startTime.format('hh:mm'))));
+                                
                                 start = start * 3600000;        // convert integer given into miliseconds
                                 end = end * 3600000;            // convert integer given into miliseconds
                                 start = start + startTime;      // startTime == 00:00:00 on day that was clicked
                             //    endTime = endTime - (24 * 3600000);
-                                end = end + startTime;              // endTime == 00:00:00 day AFTER the day that was clicked (so we must )
-                                console.log(start + " " + startTime + " " + end);
+                                end = end + startTime;              
+                                console.log(start + "    " + end);
                                 eventData = {
                                     title: eventTitle,
                                     start: start,
@@ -66,6 +87,9 @@
                                     id: Math.random(),
                                 };
                                 $('#Calendar').fullCalendar('renderEvent', eventData, true);
+                                addEventToDatabase("Sean",eventTitle, parseInt(startTime.format().substring(0,4)), 
+                                    parseInt(startTime.format().substring(5,7)), parseInt(startTime.format().substring(8,11)),
+                                    startTime.format('hh:mm:ss'), String((end - start) / 3600000)); // convert back from miliseconds
                             }
                         
                         }
@@ -104,7 +128,8 @@
                             selected.borderColor = "none";
                             $('#Calendar').fullCalendar('updateEvent', selected);
                         }
-                        alert("Event: " + calEvent.title + "\n" + "Starts: " +  calEvent.start.toString() + "\n" + "Ends: " + calEvent.end.toString());
+                        alert("Event: " + calEvent.title + "\n" + "Starts: " +  calEvent.start.format('MMMM Do YY YYYY, hh:mm a') + 
+                            "\n" + "Ends: " + calEvent.end.format('MMMM Do YY YYYY, hh:mm a'));
                         selected = calEvent;    // assign the selected event to variable 'selected' for use in remove or other functions
                         selected.borderColor = "red";
                         $('#Calendar').fullCalendar('updateEvent', selected);
