@@ -3,6 +3,16 @@ h2{
     font-size: 36px;
     text-align: center;
     margin-bottom: 10px;
+    font-family: "Lucida Sans Unicode", sans-serif;
+    color: #303030;
+}
+
+h3{
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: "Lucida Sans Unicode", sans-serif;
+    color: #303030;
 }
 
 #logout{
@@ -90,6 +100,11 @@ h2{
     float: right;
 }
 
+img {
+    display: block;
+    margin: 0 auto;
+}
+
 #Dashboard{
     width: 195px;
     float: left;
@@ -133,4 +148,159 @@ table{
 }
 .Days #BottomRightCorner{
     border-bottom-right-radius: 25px;
+}
+
+
+.login-page {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 50px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  font-family: "Roboto", sans-serif;
+}
+.login-page #lButton {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #9ecae1;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+  transform: translate(0px, 30px);
+  
+}
+.login-page #username {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+.login-page #pass {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+
+}
+.register {
+    font-family: "Lucida Sans Unicode", sans-serif;
+    text-align: center
+}
+.register #rButton{
+font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #9ecae1;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+  transform: translate(0px, 30px);
+}
+.MainContent {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  font-family: "Roboto", sans-serif;
+}
+
+.MainContent button{
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #9ecae1;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+}
+.createAccount {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  font-family: "Roboto", sans-serif;
+}
+
+.createAccount #lButton {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #9ecae1;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+  transform: translate(0px, 10px);
+  
+}
+
+.createAccount #username {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+.createAccount #pass1 {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+.createAccount #pass2 {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+
 }

@@ -8,12 +8,14 @@
 	<script src="myFunctions.js"></script>
 </head>
 <body>
-	<h2 id="title">Register</h2>
-	<div id="login">
+	<h2 id="title">Group Calendar</h2>
+     <img src="Logo.jpg" alt="Logo" height="250" width="250"> 
+     <h3 id="title">Register</h3>
+	<div class="createAccount">
 	<form onsubmit="register();return false;">
-		User Name: <input type="text" id="username" name="username"  required /> <br><br>
-		Password: <input type="password" id="pass1" name="pass1" required/><br><br>
-		Confirm Password: <input type="password" id="pass2" name="pass2" required/>
+		<input type="text" placeholder="username" id="username" name="username"  required /> <br><br>
+		<input type="password" placeholder="password" id="pass1" name="pass1" required/><br><br>
+		<input type="password" placeholder="confirm password" id="pass2" name="pass2" required/>
 		<input type="hidden" name="lorr" value="Register">
 		<input type="submit" id="lButton" name="submit" value="Register"/>
 	</form>
